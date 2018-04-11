@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import logo from '../images/logo.svg';
+import React, { Component } from "react";
+import Task from "./Task";
+import logo from "../images/logo.svg";
 
-class App extends Component {
+class App extends React.Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Simple Tasks</h1>
-        </header>
-        <p className="App-intro">
-          You can choose a simple task to count the minutes from begin -> end 
-          <p>Settings -> set minutes / set tasks on homepage</p>
-        </p>
+      <div className="simple-tasks">
+        <ul className="list-tasks">
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+        </ul>
       </div>
     );
   }
