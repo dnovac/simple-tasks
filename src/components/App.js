@@ -3,8 +3,15 @@ import Task from "./Task";
 import logo from "../images/logo.svg";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.getRandom = this.getRandom.bind(this);
+    this.colorIsUsed = this.colorIsUsed.bind(this);
+
+    this.state = {
+      alreadyUsedColors: {}
+    };
   }
 
   loadColors() {
@@ -15,8 +22,39 @@ class App extends Component {
       "#2188ff",
       "#8a63d2",
       "#ea4a5a",
-      "#ffd33d"
+      "#ffd33d",
+      "#00283f",
+      "#ccac00",
+      "#ac8e9a",
+      "#fc8c7e",
+      "#f5deb3"
     ];
+  }
+
+  getRandom(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  colorIsUsed(color) {
+    let alreadyUsedColorsClone = [{ ...this.state.alreadyUsedColors }];
+    if (alreadyUsedColorsClone.includes(color)) {
+      return true;
+    }
+    return false;
+  }
+
+  fetchNewColor(colorsArray) {
+    let color = this.getRandom(colorsArray);
+
+    if (this.colorIsUsed(color)) {
+      return this.getRandom(colorsArray);
+    } else {
+      //ToDo: the state is not persisted here so it will always enter on this part. Need to fix it.
+      let alreadyUsedColorsClone = [{ ...this.state.alreadyUsedColors }];
+      alreadyUsedColorsClone[`color-${color}`] = color;
+      //this.setState({alreadyUsedColors: alreadyUsedColorsClone});
+      return color;
+    }
   }
 
   render() {
@@ -26,39 +64,39 @@ class App extends Component {
       <div className="simple-tasks">
         <ul className="tasks-list">
           <Task
-            taskBackgroundColor={colors[0]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Brushing Teeth"
-            taskDuration="3 min"
+            taskDuration={3}
           />
           <Task
-            taskBackgroundColor={colors[1]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Boiling eggs"
-            taskDuration="4 min"
+            taskDuration={5}
           />
           <Task
-            taskBackgroundColor={colors[2]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Boiling pastas"
-            taskDuration="8 min"
+            taskDuration={8}
           />
           <Task
-            taskBackgroundColor={colors[3]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Mask on"
-            taskDuration="10 min"
+            taskDuration={10}
           />
           <Task
-            taskBackgroundColor={colors[4]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Meditation"
-            taskDuration="15 min"
+            taskDuration={15}
           />
           <Task
-            taskBackgroundColor={colors[5]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Social Media"
-            taskDuration="10 min"
+            taskDuration="10"
           />
           <Task
-            taskBackgroundColor={colors[6]}
+            taskBackgroundColor={this.fetchNewColor(colors)}
             taskName="Tea time"
-            taskDuration="5 min"
+            taskDuration={5}
           />
         </ul>
       </div>
