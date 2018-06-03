@@ -1,6 +1,7 @@
-import React from "react";
-import "../css/components/Task.sass";
-import TimeProgressBar from "./TimeProgressBar";
+import React from 'react';
+import '../css/components/Task.sass';
+import TimeProgressBar from './TimeProgressBar';
+import Button from '@material-ui/core/Button';
 
 class Task extends React.Component {
   constructor(props) {
@@ -35,9 +36,16 @@ class Task extends React.Component {
             startDate={this.state.startDate}
           />
         </div>
-        <button onClick={() => this.setTimerInterval(this.props.taskDuration)}>
-          Start
-        </button>
+        <div className="button-container">
+          <Button
+            variant="raised"
+            color="primary"
+            className="button"
+            onClick={() => this.setTimerInterval(this.props.taskDuration)}
+          >
+            Start
+          </Button>
+        </div>
       </li>
     );
   }
