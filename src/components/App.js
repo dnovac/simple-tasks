@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Task from './Task';
+import AddTaskForm from './AddTaskForm';
 
 class App extends Component {
   constructor() {
     super();
 
-    /*   this.fetchNewColor = this.fetchNewColor.bind(this);
-    this.nextColor = this.nextColor.bind(this); */
+    this.addTask = this.addTask.bind(this);
 
     this.state = {
+      tasks: {},
       colors: [
         '#d1d5da',
         '#fb8532',
@@ -27,40 +28,29 @@ class App extends Component {
     };
   }
 
-  /* 
-  colorAlreadyUsed = color => {
-    let usedColors = this.state.alreadyUsedColors;
-    if (usedColors.includes(color)) {
-      return true;
-    } else {
-      return false;
-    }
+  addTask = task => {
+    //update our state
+    const tasks = { ...this.state.tasks };
+    //add in our new task
+    const timestamp = Date.now(); //for unique key
+    tasks[`task-${timestamp}`] = task; //this is the updated tasks but not yet set on state
+    //set state
+    this.setState({ tasks });
   };
 
-  fetchNewColor = () => {
-    let colors = this.state.colors;
-
-    for (let index = 0; index < colors.length; index++) {
-      const color = colors[index];
-
-      if (this.colorAlreadyUsed(color)) {
-        index++;
-        return;
-      } else {
-        let alreadyUsedColorsClone = [...this.state.alreadyUsedColors];
-        alreadyUsedColorsClone.push(color);
-        console.log(`arrayCol: ${color}`);
-        //this.setState({ alreadyUsedColors: alreadyUsedColorsClone });
-        return color;
-      }
-    }
-  }; */
-
   render() {
+    const tasks = this.state.tasks;
     return (
       <MuiThemeProvider>
         <div className="simple-tasks">
           <ul className="tasks-list">
+            {Object.keys(tasks).map(key => (
+              <Task
+                taskBackgroundColor={this.state.colors[0]}
+                taskName={tasks[key].name}
+                taskDuration={tasks[key].time}
+              />
+            ))}
             <Task
               taskBackgroundColor={this.state.colors[0]}
               taskName="Brushing Teeth"
@@ -97,6 +87,10 @@ class App extends Component {
               taskDuration={5}
             />
           </ul>
+
+          <div className="new-task-container">
+            <AddTaskForm addTask={this.addTask} />
+          </div>
         </div>
       </MuiThemeProvider>
     );
