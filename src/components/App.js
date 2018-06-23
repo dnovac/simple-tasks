@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
+
 import Task from './Task';
-import AddTaskForm from './AddTaskForm';
+import AddTaskButton from './AddTaskButton';
 
 class App extends Component {
   constructor() {
     super();
+
+    //font awesome
+    library.add(faCalendarPlus);
 
     this.addTask = this.addTask.bind(this);
 
@@ -28,29 +35,42 @@ class App extends Component {
     };
   }
 
+  //**** when load the page get all tasks from local storage if case
+  componentWillMount = () => {
+    //Convert back to JS object, reading from LocalStorage
+    const tasksFromLocalState = JSON.parse(localStorage.getItem('tasks'));
+    //copy from local to state 
+    let tasks = Object.assign(this.state.tasks, tasksFromLocalState);
+    //set state
+    this.setState({
+      tasks
+    });
+  };
+
   addTask = task => {
-    //update our state
+    //update state
     const tasks = { ...this.state.tasks };
-    //add in our new task
+    //add in new task
     const timestamp = Date.now(); //for unique key
     tasks[`task-${timestamp}`] = task; //this is the updated tasks but not yet set on state
-    //set state
-    this.setState({ tasks });
+
+    //set state and update local storage
+    this.setState({ tasks }, this.saveToLocalStorage);
+  };
+
+  saveToLocalStorage = () => {
+    const tasks = this.state.tasks;
+    //Convert it to String before saving to LocalStorage
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   };
 
   render() {
     const tasks = this.state.tasks;
+    let i = 0;
     return (
       <MuiThemeProvider>
         <div className="simple-tasks">
           <ul className="tasks-list">
-            {Object.keys(tasks).map(key => (
-              <Task
-                taskBackgroundColor={this.state.colors[0]}
-                taskName={tasks[key].name}
-                taskDuration={tasks[key].time}
-              />
-            ))}
             <Task
               taskBackgroundColor={this.state.colors[0]}
               taskName="Brushing Teeth"
@@ -86,11 +106,22 @@ class App extends Component {
               taskName="Tea time"
               taskDuration={5}
             />
+            {
+              tasks
+              ? Object.keys(tasks).map(key => (
+                  <Task
+                    taskBackgroundColor={this.state.colors[0]}
+                    taskName={tasks[key].name}
+                    taskDuration={tasks[key].time}
+                  />
+                ))
+              : null}
           </ul>
 
           <div className="new-task-container">
-            <AddTaskForm addTask={this.addTask} />
+            <AddTaskButton addTask={this.addTask} />
           </div>
+
         </div>
       </MuiThemeProvider>
     );

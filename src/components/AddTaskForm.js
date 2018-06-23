@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../css/components/AddTaskForm.sass';
-import TextField from '@material-ui/core/TextField';
 
 class AddTaskForm extends Component {
   
@@ -15,8 +14,10 @@ class AddTaskForm extends Component {
     };
 
     this.props.addTask(task);
+    
     //reset form to empty fields
     this.taskForm.reset();
+    //this.props.setState({showAddForm: false}) ->hide inputs
   }
 
   render() {
@@ -38,21 +39,6 @@ class AddTaskForm extends Component {
           placeholder="Task Time"
           className="task-form-time"
         />
-        {/* <TextField
-          ref={input => (this.name = input)}
-          id="name"
-          label="Name"
-          className="task-form-name"
-          margin="normal"
-        />
-        <TextField
-          ref={input => (this.time = input)}
-          id="name"
-          label="Name"
-          className="task-form-time"
-          margin="normal"
-        />
- */}
         <button type="submit">Add</button>
       </form>
     );
