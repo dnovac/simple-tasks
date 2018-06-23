@@ -39,7 +39,7 @@ class App extends Component {
   componentWillMount = () => {
     //Convert back to JS object, reading from LocalStorage
     const tasksFromLocalState = JSON.parse(localStorage.getItem('tasks'));
-    //copy from local to state 
+    //copy from local to state
     let tasks = Object.assign(this.state.tasks, tasksFromLocalState);
     //set state
     this.setState({
@@ -71,46 +71,15 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="simple-tasks">
           <ul className="tasks-list">
-            <Task
+           {/*  <Task
               taskBackgroundColor={this.state.colors[0]}
               taskName="Brushing Teeth"
               taskDuration={3}
-            />
-            <Task
-              taskBackgroundColor={this.state.colors[1]}
-              taskName="Boiling eggs"
-              taskDuration={5}
-            />
-            <Task
-              taskBackgroundColor={this.state.colors[2]}
-              taskName="Boiling pastas"
-              taskDuration={8}
-            />
-            <Task
-              taskBackgroundColor={this.state.colors[3]}
-              taskName="Mask on"
-              taskDuration={10}
-            />
-            <Task
-              taskBackgroundColor={this.state.colors[4]}
-              taskName="Meditation"
-              taskDuration={15}
-            />
-            <Task
-              taskBackgroundColor={this.state.colors[5]}
-              taskName="Social Media"
-              taskDuration="10"
-            />
-            <Task
-              taskBackgroundColor={this.state.colors[6]}
-              taskName="Tea time"
-              taskDuration={5}
-            />
-            {
-              tasks
+            /> */}
+            {tasks
               ? Object.keys(tasks).map(key => (
                   <Task
-                    taskBackgroundColor={this.state.colors[0]}
+                    taskBackgroundColor={this.state.colors[i++]}
                     taskName={tasks[key].name}
                     taskDuration={tasks[key].time}
                   />
@@ -121,7 +90,6 @@ class App extends Component {
           <div className="new-task-container">
             <AddTaskButton addTask={this.addTask} />
           </div>
-
         </div>
       </MuiThemeProvider>
     );
