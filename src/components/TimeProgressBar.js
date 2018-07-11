@@ -40,7 +40,7 @@ class TimeProgressBar extends React.Component {
   render() {
     return (
       <div className="time-progress">
-        <Progress completed={this.state.progress} color="#e440e2" />
+        <Progress completed={this.state.progress} color="#fbc531" />
       </div>
     );
   }

@@ -30,7 +30,7 @@ class Task extends React.Component {
       }
       c = '0x' + c.join('');
       return (
-        'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',0.7)'
+        'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',0.8)'
       );
     }
     throw new Error('Bad Hex');
@@ -41,7 +41,7 @@ class Task extends React.Component {
     return (
       <div
         className="task-container"
-        style={{ backgroundColor: `${color}` }}
+        style={{ border: `1px ${color} solid` }}
       >
         <h2 className="task-name">{this.props.taskName}</h2>
         <span className="task-duration">{this.props.taskDuration} Minutes</span>

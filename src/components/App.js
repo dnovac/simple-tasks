@@ -19,7 +19,6 @@ class App extends Component {
     this.state = {
       tasks: {},
       colors: [
-        '#d1d5da',
         '#fb8532',
         '#34d058',
         '#2188ff',
