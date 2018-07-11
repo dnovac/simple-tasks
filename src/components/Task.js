@@ -37,16 +37,16 @@ class Task extends React.Component {
   };
 
   render() {
-    let borderColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.9);
+    let buttonColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.8);
     let highlightColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.6);
 
     return (
-      <div className="task-container" style={{ border: `1px ${borderColor} solid` }}>
+      <div className="task-container" /* style={{ border: `1px ${borderColor} solid` }} */>
         <div className="task-name">
           <span
             className="highlight"
             style={{
-              backgroundImage: `linear-gradient(to right, ${highlightColor} 40%, #fff 100%)`
+              backgroundImage: `linear-gradient(to right, ${buttonColor} 30%, #fff 100%)`
             }}
           >
             {this.props.taskName}
@@ -65,6 +65,7 @@ class Task extends React.Component {
             variant="raised"
             color="primary"
             className="button"
+            style={{ backgroundColor: `${buttonColor}` }}
             onClick={() => this.setTimerInterval(this.props.taskDuration)}
           >
             Start
