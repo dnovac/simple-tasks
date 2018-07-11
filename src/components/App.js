@@ -70,8 +70,8 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className="simple-tasks">
-          <ul className="tasks-list">
-           {/*  <Task
+          <div className="container-tasks-list">
+            {/*  <Task
               taskBackgroundColor={this.state.colors[0]}
               taskName="Brushing Teeth"
               taskDuration={3}
@@ -85,8 +85,7 @@ class App extends Component {
                   />
                 ))
               : null}
-          </ul>
-
+          </div>
           <div className="new-task-container">
             <AddTaskButton addTask={this.addTask} />
           </div>
