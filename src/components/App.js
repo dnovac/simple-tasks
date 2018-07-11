@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
+import '../css/components/App.sass';
 
 import Task from './Task';
 import AddTaskButton from './AddTaskButton';

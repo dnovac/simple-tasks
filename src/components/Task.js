@@ -21,7 +21,7 @@ class Task extends React.Component {
     this.setState({ startDate, endDate });
   }
 
-  hexToRgbA = (hex) => {
+  hexToRgbA = (hex, opacity) => {
     var c;
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
       c = hex.substring(1).split('');
@@ -30,21 +30,29 @@ class Task extends React.Component {
       }
       c = '0x' + c.join('');
       return (
-        'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',0.8)'
+        'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + `,${opacity})`
       );
     }
     throw new Error('Bad Hex');
-  }
+  };
 
   render() {
-    let color = this.hexToRgbA(this.props.taskBackgroundColor);
+    let borderColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.9);
+    let highlightColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.6);
+
     return (
-      <div
-        className="task-container"
-        style={{ border: `1px ${color} solid` }}
-      >
-        <h2 className="task-name">{this.props.taskName}</h2>
-        <span className="task-duration">{this.props.taskDuration} Minutes</span>
+      <div className="task-container" style={{ border: `1px ${borderColor} solid` }}>
+        <div className="task-name">
+          <span
+            className="highlight"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${highlightColor} 40%, #fff 100%)`
+            }}
+          >
+            {this.props.taskName}
+          </span>
+        </div>
+        <div className="task-duration">{this.props.taskDuration} Minutes</div>
         <div className="time-progress-bar">
           <TimeProgressBar
             deadlineMinutes={this.props.taskDuration}
