@@ -41,7 +41,7 @@ class Task extends React.Component {
     let highlightColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.6);
 
     return (
-      <div className="task-container" /* style={{ border: `1px ${borderColor} solid` }} */>
+      <div className="task-container" /* style={{background:`linear-gradient(white, white 50%, black 50%, black)`}} */>
         <div className="task-name">
           <span
             className="highlight"

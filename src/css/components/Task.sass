@@ -5,14 +5,40 @@ $mazarine_blue: #273c75
 $rise_n_shine: #fbc531
 $gold: #e1b12c
 
+@keyframes up-bump 
+    0%
+        padding-top: 2em
+    50%
+        padding-top: 1.5em
+    100%
+        padding-top: 2em
+
+@keyframes down-bump
+    0% 
+        padding-top: 2em
+    50%
+        padding-top: 2.5em
+    100%
+        padding-top: 2em
+
 .task-container
     //border: 1px $mazarine_blue solid
-    background-color: $white
+    //background-color: $white
     padding: 40px 20px 40px 20px
+    transition: transform .3s
+    background: linear-gradient(white, white 50%, $rise_n_shine 50%, $rise_n_shine)
+    background-size: 100% 200%
+    transition: all 0.2s ease
+    animation: down-bump 0.4s ease
+
+.task-container:hover
+    //transform: scale(1.1)
+    background-position: 100% 100%
+    animation: up-bump 0.3s ease
      
 .task-name 
     color: $mazarine_blue 
-    font-size: 48px
+    font-size: 44px
     text-transform: capitalize
 
 .highlight
