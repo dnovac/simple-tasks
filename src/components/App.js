@@ -20,17 +20,23 @@ class App extends Component {
     this.state = {
       tasks: {},
       colors: [
-        '#fb8532',
-        '#34d058',
-        '#2188ff',
-        '#8a63d2',
-        '#ea4a5a',
-        '#ffd33d',
-        '#00283f',
-        '#ccac00',
-        '#ac8e9a',
-        '#fc8c7e',
-        '#f5deb3'
+        '#f1c40f',
+        '#f8a5c2',
+        '#81ecec',
+        '#58B19F',
+        '#f3a683',
+        '#D6A2E8',
+        '#f7d794',
+        '#dfe6e9',
+        '#f78fb3',
+        '#a29bfe',
+        '#f19066',
+        '#596275',
+        '#c44569',
+        '#b8e994',
+        '#f8c291',
+        '#81ecec',
+        '#ffeaa7'
       ]
     };
   }

@@ -41,7 +41,7 @@ class Task extends React.Component {
 
   render() {
     const buttonColor = this.props.taskBackgroundColor;
-    const hoverBackgroundColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.6);
+    const hoverBackgroundColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.5);
 
     //const backgroundColor = styles.backgroundColorVar;
     //exported var used in js from sass
