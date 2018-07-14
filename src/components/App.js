@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
+import { faCalendarPlus, faClock } from '@fortawesome/free-regular-svg-icons';
 import '../css/components/App.sass';
 
 import Task from './Task';
@@ -13,7 +13,7 @@ class App extends Component {
     super();
 
     //font awesome
-    library.add(faCalendarPlus);
+    library.add(faCalendarPlus, faClock);
 
     this.addTask = this.addTask.bind(this);
 

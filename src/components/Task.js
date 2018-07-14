@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/components/Task.sass';
 import TimeProgressBar from './TimeProgressBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '@material-ui/core/Button';
 
 class Task extends React.Component {
@@ -30,46 +31,63 @@ class Task extends React.Component {
       }
       c = '0x' + c.join('');
       return (
-        'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + `,${opacity})`
+        'rgba(' +
+        [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') +
+        `,${opacity})`
       );
     }
     throw new Error('Bad Hex');
   };
 
   render() {
-    let buttonColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.8);
-    let highlightColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.6);
+    const buttonColor = this.props.taskBackgroundColor;
+    const hoverBackgroundColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.6);
+
+    //const backgroundColor = styles.backgroundColorVar;
+    //exported var used in js from sass
 
     return (
-      <div className="task-container" /* style={{background:`linear-gradient(white, white 50%, black 50%, black)`}} */>
+      <div
+        className="task-container"
+        style={{
+          background: `linear-gradient(white, white 50%, ${hoverBackgroundColor} 50%, ${hoverBackgroundColor})`
+        }}
+      >
         <div className="task-name">
           <span
             className="highlight"
-            style={{
-              backgroundImage: `linear-gradient(to right, ${buttonColor} 30%, #fff 100%)`
-            }}
+            /* style={
+              {
+                backgroundImage: `linear-gradient(to right, ${buttonColor} 30%, #fff 100%)`
+              }
+            } */
           >
             {this.props.taskName}
           </span>
         </div>
         <div className="task-duration">{this.props.taskDuration} Minutes</div>
-        <div className="time-progress-bar">
-          <TimeProgressBar
-            deadlineMinutes={this.props.taskDuration}
-            endDate={this.state.endDate}
-            startDate={this.state.startDate}
+        <div className="time-progress-container">
+          <FontAwesomeIcon
+            icon={['far', 'clock']} //fas is the default prefix (font-awesome-solid)
+            size="1x"
+            className="time-progress-ico"
           />
+          <div className="time-progress-bar">
+            <TimeProgressBar
+              deadlineMinutes={this.props.taskDuration}
+              endDate={this.state.endDate}
+              startDate={this.state.startDate}
+            />
+          </div>
         </div>
         <div className="button-container">
-          <Button
-            variant="raised"
-            color="primary"
-            className="button"
+          <button
+            className="button-start-task"
             style={{ backgroundColor: `${buttonColor}` }}
             onClick={() => this.setTimerInterval(this.props.taskDuration)}
           >
             Start
-          </Button>
+          </button>
         </div>
       </div>
     );

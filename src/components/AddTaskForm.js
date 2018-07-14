@@ -34,8 +34,8 @@ class AddTaskForm extends Component {
         />
         <input
           ref={input => (this.time = input)}
-          type="text"
-          placeholder="Duration"
+          type="number"
+          placeholder="Minutes"
           className="task-form-input"
         />
         <button type="submit">Add</button>
