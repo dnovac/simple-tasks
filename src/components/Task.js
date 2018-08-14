@@ -2,7 +2,6 @@ import React from 'react';
 import '../css/components/Task.sass';
 import TimeProgressBar from './TimeProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from '@material-ui/core/Button';
 
 class Task extends React.Component {
   constructor(props) {
@@ -41,7 +40,10 @@ class Task extends React.Component {
 
   render() {
     const buttonColor = this.props.taskBackgroundColor;
-    const hoverBackgroundColor = this.hexToRgbA(this.props.taskBackgroundColor, 0.5);
+    const hoverBackgroundColor = this.hexToRgbA(
+      this.props.taskBackgroundColor,
+      0.5
+    );
 
     //const backgroundColor = styles.backgroundColorVar;
     //exported var used in js from sass
@@ -54,16 +56,7 @@ class Task extends React.Component {
         }}
       >
         <div className="task-name">
-          <span
-            className="highlight"
-            /* style={
-              {
-                backgroundImage: `linear-gradient(to right, ${buttonColor} 30%, #fff 100%)`
-              }
-            } */
-          >
-            {this.props.taskName}
-          </span>
+          <span className="highlight">{this.props.taskName}</span>
         </div>
         <div className="task-duration">{this.props.taskDuration} Minutes</div>
         <div className="time-progress-container">

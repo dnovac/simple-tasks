@@ -6,7 +6,7 @@ import { faCalendarPlus, faClock } from '@fortawesome/free-regular-svg-icons';
 import '../css/components/App.sass';
 
 import Task from './Task';
-import AddTaskButton from './AddTaskButton';
+import AddTaskForm from './AddTaskForm';
 
 class App extends Component {
   constructor() {
@@ -20,6 +20,23 @@ class App extends Component {
     this.state = {
       tasks: {},
       colors: [
+        '#f1c40f',
+        '#f8a5c2',
+        '#81ecec',
+        '#58B19F',
+        '#f3a683',
+        '#D6A2E8',
+        '#f7d794',
+        '#dfe6e9',
+        '#f78fb3',
+        '#a29bfe',
+        '#f19066',
+        '#596275',
+        '#c44569',
+        '#b8e994',
+        '#f8c291',
+        '#81ecec',
+        '#ffeaa7',
         '#f1c40f',
         '#f8a5c2',
         '#81ecec',
@@ -77,11 +94,6 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="simple-tasks">
           <div className="container-tasks-list">
-            {/*  <Task
-              taskBackgroundColor={this.state.colors[0]}
-              taskName="Brushing Teeth"
-              taskDuration={3}
-            /> */}
             {tasks
               ? Object.keys(tasks).map(key => (
                   <Task
@@ -91,9 +103,7 @@ class App extends Component {
                   />
                 ))
               : null}
-          </div>
-          <div className="new-task-container">
-            <AddTaskButton addTask={this.addTask} />
+            <AddTaskForm addTask={this.addTask} />
           </div>
         </div>
       </MuiThemeProvider>
