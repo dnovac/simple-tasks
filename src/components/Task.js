@@ -8,15 +8,14 @@ class Task extends React.Component {
     super(props);
 
     this.state = {
-      startDate: new Date(),
-      endDate: new Date()
+      startDate: null,
+      endDate: null
     };
   }
 
   setTimerInterval(duration) {
     let startDate = new Date();
-    let endDate = new Date();
-    endDate.setMinutes(endDate.getMinutes() + duration);
+    let endDate = new Date(startDate.getTime() + duration * 60000);
 
     this.setState({ startDate, endDate });
   }
@@ -56,7 +55,9 @@ class Task extends React.Component {
         }}
       >
         <div className="task-name">
-          <span className="highlight">{this.props.taskName}</span>
+          <span className="highlight" title={this.props.task}>
+            {this.props.taskName}
+          </span>
         </div>
         <div className="task-duration">{this.props.taskDuration} Minutes</div>
         <div className="time-progress-container">
@@ -70,6 +71,7 @@ class Task extends React.Component {
               deadlineMinutes={this.props.taskDuration}
               endDate={this.state.endDate}
               startDate={this.state.startDate}
+              taskName={this.props.taskName}
             />
           </div>
         </div>

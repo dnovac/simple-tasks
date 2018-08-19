@@ -1,5 +1,5 @@
 
-//ToDo: extract those in a file and @import 
+//TODO: extract those in a file and @import 
 $dark: #000
 $white: #fff
 $mazarine_blue: #273c75
@@ -8,6 +8,7 @@ $gold: #e1b12c
 $summer_water: #079992
 $light_red: #e74c3c
 $vintage_shadow: rgba(178, 190, 195, 0.8)
+$gray: #636e72
 
 /* \:export 
     backgroundColorVar: $dark */
@@ -29,6 +30,10 @@ $vintage_shadow: rgba(178, 190, 195, 0.8)
     color: $mazarine_blue 
     font-size: 48px
     text-transform: capitalize
+    text-overflow: ellipsis
+    /* Required for text-overflow to do anything */
+    white-space: nowrap
+    overflow: hidden
 
 .task-duration
     font-family: 'OpenSans-SemiBold', sans-serif
@@ -46,7 +51,7 @@ $vintage_shadow: rgba(178, 190, 195, 0.8)
 .time-progress-ico
     float: left
     width: 8%
-    color: $light_red
+    color: $gray
 
 .time-progress-bar
     width: 90%
