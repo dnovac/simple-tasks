@@ -9,10 +9,8 @@ class Task extends React.Component {
         super(props);
 
         this.state = {
-            isStarted: false,
-            isStopped: false,
-            isCompleted: false,
             progress: 0,
+            timerStatus: 'READY_TO_START', //TODO: extract timerStatuses in a var class
             buttonText: 'Start',
             secsUntilEnd: this.props.taskDuration * 60
         };
@@ -25,47 +23,43 @@ class Task extends React.Component {
 
     //****** START COUNTDOWN
     startCountDown = () => {
-        if (this.state.isCompleted) {
             this.setState({
-                progress: 0,
-                isCompleted: false,
-                buttonText: 'Start'
-            });
-            console.log('progress: ' + this.state.progress);
-
-        } else {
-            this.setState({
-                isStarted: true,
-                isStopped: false,
+                timerStatus: 'IN_PROGRESS',
                 buttonText: 'Stop'
-            });
-            //this interval represents how much in seconds mean 1% from progress bar.
-            setInterval(
-                () =>
-                    this.updateCountDown(100 / (this.props.taskDuration * 60)),
-                1000 //each second
+            },  function() {
+                //this interval represents how much in seconds mean 1% from progress bar.
+                setInterval( () => this.updateCountDown(100 / (this.props.taskDuration * 60)), 1000) //each second
+                }
             );
-        }
+    };
+
+    resetCountDown = () => {
+        this.setState({
+            progress: 0,
+            secsUntilEnd: this.props.taskDuration * 60,
+            timerStatus: 'READY_TO_START',
+            buttonText: 'Start'
+        });
     };
 
     stopCountDown = () => {
         this.setState({
-            isStarted: false,
-            isStopped: true,
+            timerStatus: 'READY_TO_START',
             buttonText: 'Start'
         });
     };
 
     updateCountDown = progressToUpdateEachSec => {
-        if (this.state.isStarted && this.state.progress < 100) {
+        if (this.state.timerStatus === 'IN_PROGRESS' && this.state.progress < 100) {
             const now = new Date();
             const endDate = new Date(
                 now.getTime() + this.state.secsUntilEnd * 1000
             );
 
-            console.log(`NOW: ${now}  END: ${endDate}`);
+           
 
             if (now.getTime() < endDate.getTime()) {
+                console.log(`NOW: ${now}  END: ${endDate}`);
                 const secsUntilEnd = this.state.secsUntilEnd - 1;
                 let currentProgress = this.getRoundProgress(
                     this.state.progress + progressToUpdateEachSec
@@ -79,7 +73,7 @@ class Task extends React.Component {
                     this.addNotification();
                     this.setState({
                         buttonText: 'Reset',
-                        isCompleted: true
+                        timerStatus: 'IS_COMPLETED',
                     });
                 }
             }
@@ -173,10 +167,21 @@ class Task extends React.Component {
                         style={{
                             backgroundColor: `${buttonColor}`
                         }}
-                        onClick={() =>
-                            !this.state.isStarted || this.state.isCompleted
-                                ? this.startCountDown()
-                                : this.stopCountDown()
+                        onClick={() => {
+                                switch(this.state.timerStatus) {
+                                        case 'READY_TO_START': 
+                                            this.startCountDown();
+                                            break;
+                                        case 'IN_PROGRESS':
+                                            this.stopCountDown();
+                                            break;
+                                        case 'IS_COMPLETED':
+                                            this.resetCountDown();
+                                            break;
+                                        default: 
+                                            this.startCountDown();
+                                }
+                            }
                         }>
                         {this.state.buttonText}
                     </button>
