@@ -5,7 +5,7 @@
 
 .task-container
     position: relative
-    padding: 40px 20px 40px 20px
+    padding: 20px 20px 40px 20px
     background-size: 100% 200% !important
     transition: all 0.2s ease
     animation: 0.4s ease
@@ -14,12 +14,24 @@
 .task-container:hover
     background-position: 100% 100% !important
     animation: 0.3s ease
+
+.task-delete-ico 
+    float: right
+    color: $mazarine_blue
+    border: 0
+    background-color: rgba(0, 0, 0, 0) //opacity 0
+
+.task-delete-ico:hover  
+    color: $light_red  
+    cursor: pointer
+    border: 0
      
 .task-name 
     color: $mazarine_blue 
-    font-size: 48px
+    font-size: 44px
     text-transform: capitalize
     text-overflow: ellipsis
+    padding-top: 13%
     /* Required for text-overflow to do anything */
     white-space: nowrap
     overflow: hidden
@@ -28,13 +40,13 @@
     font-family: 'OpenSans-SemiBold', sans-serif
     text-transform: capitalize
     font-size: 18px
-    color: $mazarine_blue    
+    color: $gray    
     margin-top: 40px
 
 .time-progress-container 
     position: absolute
     top: 60%
-    width: 90%
+    width: 80%
     overflow: auto
 
 .time-progress-ico
@@ -43,8 +55,8 @@
     color: $gray
 
 .time-progress-bar
-    width: 90%
-    margin: 2% 0 0 9%
+    width: 100%
+    margin: 3% 0 0 15%
 
 
 .button-start-task

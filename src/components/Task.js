@@ -3,6 +3,7 @@ import '../css/components/Task.sass';
 import TimeProgressBar from './TimeProgressBar';
 import NotificationSystem from 'react-notification-system';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class Task extends React.Component {
     constructor(props) {
@@ -23,14 +24,22 @@ class Task extends React.Component {
 
     //****** START COUNTDOWN
     startCountDown = () => {
-            this.setState({
+        this.setState(
+            {
                 timerStatus: 'IN_PROGRESS',
                 buttonText: 'Stop'
-            },  function() {
+            },
+            function() {
                 //this interval represents how much in seconds mean 1% from progress bar.
-                setInterval( () => this.updateCountDown(100 / (this.props.taskDuration * 60)), 1000) //each second
-                }
-            );
+                setInterval(
+                    () =>
+                        this.updateCountDown(
+                            100 / (this.props.taskDuration * 60)
+                        ),
+                    1000
+                ); //each second
+            }
+        );
     };
 
     resetCountDown = () => {
@@ -50,13 +59,14 @@ class Task extends React.Component {
     };
 
     updateCountDown = progressToUpdateEachSec => {
-        if (this.state.timerStatus === 'IN_PROGRESS' && this.state.progress < 100) {
+        if (
+            this.state.timerStatus === 'IN_PROGRESS' &&
+            this.state.progress < 100
+        ) {
             const now = new Date();
             const endDate = new Date(
                 now.getTime() + this.state.secsUntilEnd * 1000
             );
-
-           
 
             if (now.getTime() < endDate.getTime()) {
                 console.log(`NOW: ${now}  END: ${endDate}`);
@@ -73,7 +83,7 @@ class Task extends React.Component {
                     this.addNotification();
                     this.setState({
                         buttonText: 'Reset',
-                        timerStatus: 'IS_COMPLETED',
+                        timerStatus: 'IS_COMPLETED'
                     });
                 }
             }
@@ -139,6 +149,11 @@ class Task extends React.Component {
                 style={{
                     background: `linear-gradient(white, white 50%, ${hoverBackgroundColor} 50%, ${hoverBackgroundColor})`
                 }}>
+                <button
+                    className="task-delete-ico"
+                    onClick={() => alert('delete')}>
+                    <FontAwesomeIcon icon={faTimes} size="2x" />
+                </button>
                 <NotificationSystem ref="notificationSystem" style={style} />
                 <div className="task-name">
                     <span className="highlight" title={this.props.task}>
@@ -168,21 +183,20 @@ class Task extends React.Component {
                             backgroundColor: `${buttonColor}`
                         }}
                         onClick={() => {
-                                switch(this.state.timerStatus) {
-                                        case 'READY_TO_START': 
-                                            this.startCountDown();
-                                            break;
-                                        case 'IN_PROGRESS':
-                                            this.stopCountDown();
-                                            break;
-                                        case 'IS_COMPLETED':
-                                            this.resetCountDown();
-                                            break;
-                                        default: 
-                                            this.startCountDown();
-                                }
+                            switch (this.state.timerStatus) {
+                                case 'READY_TO_START':
+                                    this.startCountDown();
+                                    break;
+                                case 'IN_PROGRESS':
+                                    this.stopCountDown();
+                                    break;
+                                case 'IS_COMPLETED':
+                                    this.resetCountDown();
+                                    break;
+                                default:
+                                    this.startCountDown();
                             }
-                        }>
+                        }}>
                         {this.state.buttonText}
                     </button>
                 </div>
