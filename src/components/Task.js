@@ -135,6 +135,7 @@ class Task extends React.Component {
             }
         };
         const buttonColor = this.props.taskBackgroundColor;
+        const {index} = this.props;
         const hoverBackgroundColor = this.hexToRgbA(
             this.props.taskBackgroundColor,
             0.5
@@ -151,7 +152,7 @@ class Task extends React.Component {
                 }}>
                 <button
                     className="task-delete-ico"
-                    onClick={() => alert('delete')}>
+                    onClick={() => this.props.removeTask(index)}>
                     <FontAwesomeIcon icon={faTimes} size="2x" />
                 </button>
                 <NotificationSystem ref="notificationSystem" style={style} />

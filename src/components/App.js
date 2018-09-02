@@ -16,6 +16,8 @@ class App extends Component {
     library.add(faCalendarPlus, faClock);
 
     this.addTask = this.addTask.bind(this);
+    this.removeTask = this.removeTask.bind(this);
+
 
     this.state = {
       tasks: {},
@@ -81,6 +83,12 @@ class App extends Component {
     this.setState({ tasks }, this.saveToLocalStorage);
   };
 
+  removeTask(key) {
+    const tasks = {...this.state.tasks};
+    delete tasks[key];
+    this.setState({tasks});
+  }
+
   saveToLocalStorage = () => {
     const tasks = this.state.tasks;
     //Convert it to String before saving to LocalStorage
@@ -97,9 +105,12 @@ class App extends Component {
             {tasks
               ? Object.keys(tasks).map(key => (
                   <Task
+                    key={key}
+                    index={key}
                     taskBackgroundColor={this.state.colors[i++]}
                     taskName={tasks[key].name}
                     taskDuration={tasks[key].time}
+                    removeTask={this.removeTask} 
                   />
                 ))
               : null}
