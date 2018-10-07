@@ -22,7 +22,8 @@ class Task extends React.Component {
         this._notificationSystem = this.refs.notificationSystem;
     }
 
-    //****** START COUNTDOWN
+
+    //****** START COUNTDOWN *********
     startCountDown = () => {
         this.setState(
             {
@@ -31,18 +32,20 @@ class Task extends React.Component {
             },
             function() {
                 //this interval represents how much in seconds mean 1% from progress bar.
-                setInterval(
+                let intervalId = setInterval(
                     () =>
                         this.updateCountDown(
                             100 / (this.props.taskDuration * 60)
                         ),
                     1000
                 ); //each second
+                this.setState({ intervalId: intervalId });
             }
         );
     };
 
     resetCountDown = () => {
+        clearInterval(this.state.intervalId);
         this.setState({
             progress: 0,
             secsUntilEnd: this.props.taskDuration * 60,
@@ -52,6 +55,7 @@ class Task extends React.Component {
     };
 
     stopCountDown = () => {
+        clearInterval(this.state.intervalId);
         this.setState({
             timerStatus: 'READY_TO_START',
             buttonText: 'Start'
@@ -59,6 +63,7 @@ class Task extends React.Component {
     };
 
     updateCountDown = progressToUpdateEachSec => {
+        clearInterval(this.state.intervalId);
         if (
             this.state.timerStatus === 'IN_PROGRESS' &&
             this.state.progress < 100
@@ -69,16 +74,12 @@ class Task extends React.Component {
             );
 
             if (now.getTime() < endDate.getTime()) {
-                console.log(`NOW: ${now}  END: ${endDate}`);
+                console.log(`NOW: ${now}  END: ${endDate}    PROG: ${progressToUpdateEachSec}`);
                 const secsUntilEnd = this.state.secsUntilEnd - 1;
                 let currentProgress = this.getRoundProgress(
                     this.state.progress + progressToUpdateEachSec
                 );
 
-                this.setState({
-                    progress: currentProgress,
-                    secsUntilEnd
-                });
                 if (currentProgress === 100) {
                     this.addNotification();
                     this.setState({
@@ -86,6 +87,11 @@ class Task extends React.Component {
                         timerStatus: 'IS_COMPLETED'
                     });
                 }
+
+                this.setState({
+                    progress: currentProgress,
+                    secsUntilEnd
+                });
             }
         }
     };
@@ -135,15 +141,14 @@ class Task extends React.Component {
             }
         };
         const buttonColor = this.props.taskBackgroundColor;
-        const {index} = this.props;
+        const { index } = this.props;
         const hoverBackgroundColor = this.hexToRgbA(
             this.props.taskBackgroundColor,
             0.5
         );
 
-        //const backgroundColor = styles.backgroundColorVar;
+        //tip: const backgroundColor = styles.backgroundColorVar;
         //exported var used in js from sass
-
         return (
             <div
                 className="task-container"
