@@ -1,6 +1,6 @@
 import React from 'react';
-import utils from '../utils/statics';
-import { status } from '../utils/timer';
+import utils from '../utils/StaticUtils';
+import { status } from '../utils/constNames';
 import '../css/components/Task.sass';
 import TimeProgressBar from './TimeProgressBar';
 import NotificationSystem from 'react-notification-system';
