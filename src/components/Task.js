@@ -1,4 +1,6 @@
 import React from 'react';
+import utils from '../utils/statics';
+import { status } from '../utils/timer';
 import '../css/components/Task.sass';
 import TimeProgressBar from './TimeProgressBar';
 import NotificationSystem from 'react-notification-system';
@@ -11,7 +13,7 @@ class Task extends React.Component {
 
         this.state = {
             progress: 0,
-            timerStatus: 'READY_TO_START', //TODO: extract timerStatuses in a var class
+            timerStatus: status.READY,
             buttonText: 'Start',
             secsUntilEnd: this.props.taskDuration * 60
         };
@@ -22,12 +24,11 @@ class Task extends React.Component {
         this._notificationSystem = this.refs.notificationSystem;
     }
 
-
     //****** START COUNTDOWN *********
     startCountDown = () => {
         this.setState(
             {
-                timerStatus: 'IN_PROGRESS',
+                timerStatus: status.IN_PROGRESS,
                 buttonText: 'Stop'
             },
             function() {
@@ -49,7 +50,7 @@ class Task extends React.Component {
         this.setState({
             progress: 0,
             secsUntilEnd: this.props.taskDuration * 60,
-            timerStatus: 'READY_TO_START',
+            timerStatus: status.READY,
             buttonText: 'Start'
         });
     };
@@ -57,15 +58,14 @@ class Task extends React.Component {
     stopCountDown = () => {
         clearInterval(this.state.intervalId);
         this.setState({
-            timerStatus: 'READY_TO_START',
+            timerStatus: status.READY,
             buttonText: 'Start'
         });
     };
 
     updateCountDown = progressToUpdateEachSec => {
-        clearInterval(this.state.intervalId);
         if (
-            this.state.timerStatus === 'IN_PROGRESS' &&
+            this.state.timerStatus === status.IN_PROGRESS &&
             this.state.progress < 100
         ) {
             const now = new Date();
@@ -74,7 +74,9 @@ class Task extends React.Component {
             );
 
             if (now.getTime() < endDate.getTime()) {
-                console.log(`NOW: ${now}  END: ${endDate}    PROG: ${progressToUpdateEachSec}`);
+                console.log(
+                    `NOW: ${now}  END: ${endDate}    PROG: ${progressToUpdateEachSec}`
+                );
                 const secsUntilEnd = this.state.secsUntilEnd - 1;
                 let currentProgress = this.getRoundProgress(
                     this.state.progress + progressToUpdateEachSec
@@ -84,7 +86,7 @@ class Task extends React.Component {
                     this.addNotification();
                     this.setState({
                         buttonText: 'Reset',
-                        timerStatus: 'IS_COMPLETED'
+                        timerStatus: status.COMPLETED
                     });
                 }
 
@@ -101,24 +103,6 @@ class Task extends React.Component {
             message: `${this.props.taskName} task COMPLETED!`,
             level: 'info'
         });
-    };
-
-    //TODO: move it into utils
-    hexToRgbA = (hex, opacity) => {
-        var c;
-        if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-            c = hex.substring(1).split('');
-            if (c.length === 3) {
-                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-            }
-            c = '0x' + c.join('');
-            return (
-                'rgba(' +
-                [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') +
-                `,${opacity})`
-            );
-        }
-        throw new Error('Bad Hex');
     };
 
     getRoundProgress = currentProgress => {
@@ -142,7 +126,7 @@ class Task extends React.Component {
         };
         const buttonColor = this.props.taskBackgroundColor;
         const { index } = this.props;
-        const hoverBackgroundColor = this.hexToRgbA(
+        const hoverBackgroundColor = utils.hexToRgbA(
             this.props.taskBackgroundColor,
             0.5
         );
@@ -190,13 +174,13 @@ class Task extends React.Component {
                         }}
                         onClick={() => {
                             switch (this.state.timerStatus) {
-                                case 'READY_TO_START':
+                                case status.READY:
                                     this.startCountDown();
                                     break;
-                                case 'IN_PROGRESS':
+                                case status.IN_PROGRESS:
                                     this.stopCountDown();
                                     break;
-                                case 'IS_COMPLETED':
+                                case status.COMPLETED:
                                     this.resetCountDown();
                                     break;
                                 default:

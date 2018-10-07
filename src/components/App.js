@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Utils from '../utils/statics';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCalendarPlus, faClock } from '@fortawesome/free-regular-svg-icons';
@@ -20,42 +21,7 @@ class App extends Component {
 
         this.state = {
             tasks: {},
-            colors: [
-                '#f1c40f',
-                '#f8a5c2',
-                '#81ecec',
-                '#58B19F',
-                '#f3a683',
-                '#D6A2E8',
-                '#f7d794',
-                '#dfe6e9',
-                '#f78fb3',
-                '#a29bfe',
-                '#f19066',
-                '#596275',
-                '#c44569',
-                '#b8e994',
-                '#f8c291',
-                '#81ecec',
-                '#ffeaa7',
-                '#f1c40f',
-                '#f8a5c2',
-                '#81ecec',
-                '#58B19F',
-                '#f3a683',
-                '#D6A2E8',
-                '#f7d794',
-                '#dfe6e9',
-                '#f78fb3',
-                '#a29bfe',
-                '#f19066',
-                '#596275',
-                '#c44569',
-                '#b8e994',
-                '#f8c291',
-                '#81ecec',
-                '#ffeaa7'
-            ]
+            colors: Utils.loadTaskColors()
         };
     }
 
