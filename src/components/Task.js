@@ -74,9 +74,6 @@ class Task extends React.Component {
             );
 
             if (now.getTime() < endDate.getTime()) {
-                console.log(
-                    `NOW: ${now}  END: ${endDate}    PROG: ${progressToUpdateEachSec}`
-                );
                 const secsUntilEnd = this.state.secsUntilEnd - 1;
                 let currentProgress = this.getRoundProgress(
                     this.state.progress + progressToUpdateEachSec

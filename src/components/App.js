@@ -16,20 +16,29 @@ class App extends Component {
         //font awesome
         library.add(faCalendarPlus, faClock);
 
-        this.addTask = this.addTask.bind(this);
-        this.removeTask = this.removeTask.bind(this);
-
         this.state = {
             tasks: {},
             colors: Utils.loadTaskColors()
         };
     }
 
+    loadSamples = () => {
+        return {
+            'task-1539027092861': {
+                name: 'adsd',
+                time: '5'
+            }
+        };
+    };
+
     //**** when load the page get all tasks from local storage if case
     componentWillMount = () => {
         //Convert back to JS object, reading from LocalStorage
-        const tasksFromLocalState = JSON.parse(localStorage.getItem('tasks'));
-        //copy from local to state
+        const tasksFromLocalState =
+            (localStorage.getItem('tasks') != null || Utils.isEmpty(localStorage.getItem('tasks')))
+                ? JSON.parse(localStorage.getItem('tasks'))
+                : this.loadSamples();
+        //copy from localStorage to state
         let tasks = Object.assign(this.state.tasks, tasksFromLocalState);
         //set state
         this.setState({
@@ -48,11 +57,11 @@ class App extends Component {
         this.setState({ tasks }, this.saveToLocalStorage);
     };
 
-    removeTask(key) {
+    removeTask = key => {
         const tasks = { ...this.state.tasks };
         delete tasks[key];
         this.setState({ tasks }, this.saveToLocalStorage);
-    }
+    };
 
     saveToLocalStorage = () => {
         const tasks = this.state.tasks;

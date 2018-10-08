@@ -54,6 +54,10 @@ class StaticUtils {
         }
         throw new Error('Bad Hex');
     };
+
+    static isEmpty = obj => {
+        if (obj != null) return Object.keys(obj).length === 0;
+    };
 }
 
 export default StaticUtils;
