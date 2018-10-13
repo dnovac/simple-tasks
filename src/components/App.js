@@ -71,24 +71,39 @@ class App extends Component {
         let i = 0;
         return (
             <MuiThemeProvider>
-                <div className="simple-tasks">
-                    <div className="container-tasks-list">
-                        {tasks
-                            ? Object.keys(tasks).map(key => (
-                                  <Task
-                                      key={key}
-                                      index={key}
-                                      taskBackgroundColor={
-                                          this.state.colors[i++]
-                                      }
-                                      taskName={tasks[key].name}
-                                      taskDuration={tasks[key].time}
-                                      removeTask={this.removeTask}
-                                  />
-                              ))
-                            : null}
-                        <AddTaskForm addTask={this.addTask} />
+                <div>
+                    <div className="simple-tasks">
+                        <div className="container-tasks-list">
+                            {tasks
+                                ? Object.keys(tasks).map(key => (
+                                      <Task
+                                          key={key}
+                                          index={key}
+                                          taskBackgroundColor={
+                                              this.state.colors[i++]
+                                          }
+                                          taskName={tasks[key].name}
+                                          taskDuration={tasks[key].time}
+                                          removeTask={this.removeTask}
+                                      />
+                                  ))
+                                : null}
+                            <AddTaskForm addTask={this.addTask} />
+                        </div>
                     </div>
+                    <footer className="footer">
+                        <p className="author-text">
+                            Made by{' '}
+                            <a
+                                href="http://github.com/dnovac"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="author-link">
+                                Dan Novac
+                            </a>
+                            {' '}- 2018
+                        </p>
+                    </footer>
                 </div>
             </MuiThemeProvider>
         );
