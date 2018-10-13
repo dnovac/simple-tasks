@@ -56,7 +56,40 @@ class StaticUtils {
     };
 
     static isEmpty = obj => {
-        if (obj != null) return Object.keys(obj).length === 0;
+        return Object.keys(obj).length === 0;
+    };
+
+    static loadSamples = () => {
+        return {
+            'task-0': {
+                name: 'Boiling Pasta',
+                time: '8'
+            },
+            'task-1': {
+                name: 'Brush Teeth',
+                time: '3'
+            },
+            'task-2': {
+                name: 'Boiling Egg',
+                time: '5'
+            },
+            'task-3': {
+                name: 'Pet Cat',
+                time: '5'
+            },
+            'task-4': {
+                name: 'Learn something new',
+                time: '15'
+            },
+            'task-5': {
+                name: 'Making Tea',
+                time: '7'
+            },
+            'task-6': {
+                name: 'Smile 😃',
+                time: '2'
+            }
+        };
     };
 }
 

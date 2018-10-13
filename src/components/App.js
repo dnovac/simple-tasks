@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Utils from '../utils/StaticUtils';
+import Utils from '../utils/staticUtils';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCalendarPlus, faClock } from '@fortawesome/free-regular-svg-icons';
@@ -22,28 +22,25 @@ class App extends Component {
         };
     }
 
-    loadSamples = () => {
-        return {
-            'task-1539027092861': {
-                name: 'adsd',
-                time: '5'
-            }
-        };
-    };
-
     //**** when load the page get all tasks from local storage if case
     componentWillMount = () => {
         //Convert back to JS object, reading from LocalStorage
-        const tasksFromLocalState =
-            (localStorage.getItem('tasks') != null || Utils.isEmpty(localStorage.getItem('tasks')))
-                ? JSON.parse(localStorage.getItem('tasks'))
-                : this.loadSamples();
-        //copy from localStorage to state
-        let tasks = Object.assign(this.state.tasks, tasksFromLocalState);
-        //set state
-        this.setState({
-            tasks
-        });
+        const tasksFromLocalState = JSON.parse(localStorage.getItem('tasks'));
+        if (tasksFromLocalState != null && tasksFromLocalState !== undefined) {
+            const tasksToLoad = Utils.isEmpty(tasksFromLocalState)
+                ? Utils.loadSamples()
+                : { ...tasksFromLocalState };
+            //copy from localStorage to state
+            const tasks = Object.assign(this.state.tasks, tasksToLoad);
+            //set state
+            this.setState({
+                tasks
+            });
+        } else {
+            this.setState({
+                tasks: Utils.loadSamples()
+            });
+        }
     };
 
     addTask = task => {
