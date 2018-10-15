@@ -28,3 +28,13 @@
 .author-link:hover 
   color: $summer_water
 
+@media screen and (max-width: 1024px) 
+  .container-tasks-list
+    grid-template-columns: minmax(30%, 40%) minmax(30%, 40%) //2 columns
+    grid-auto-rows: minmax(450px, auto) 
+
+@media screen and (max-width: 600px) 
+  .container-tasks-list
+    grid-template-columns: minmax(60%, 80%)
+    grid-auto-rows: minmax(450px, auto) 
+ 

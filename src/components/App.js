@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Utils from '../utils/staticUtils';
+import Utils from '../utils/StaticUtils';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCalendarPlus, faClock } from '@fortawesome/free-regular-svg-icons';

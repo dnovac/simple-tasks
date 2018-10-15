@@ -1,5 +1,5 @@
 import React from 'react';
-import utils from '../utils/staticUtils';
+import utils from '../utils/StaticUtils';
 import { status } from '../utils/constNames';
 import '../css/components/Task.sass';
 import TimeProgressBar from './TimeProgressBar';
