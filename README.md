@@ -3,7 +3,7 @@ This project was made with the purpose of learning ReactJS.
 The boilerplate was created using [create-react-app](https://github.com/facebookincubator/create-react-app).
 
 ## App description
-The app `simple-tasks` that can be used to track routine/daily tasks, that does not require much than a couple minutes to complete. The user can add new tasks in order to track, or remove the ones from the loaded sample. When the task is completed, the user is notified.
+The app `simple-tasks` can be used to track routine/daily tasks that does not require much than a couple of minutes to complete. The user can add new tasks in order to track, or remove the ones from the loaded sample. When the task is completed, the user is notified.
 
 ## Data Storage
 The data is stored on browser's localStorage.
